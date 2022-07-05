@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var tapCount = 0
+    
     var body: some View {
         NavigationView {
-            Form {
-                Section {
-                    FormElement()
-                    FormElement()
-                }
+            Button("Tap Count: \(tapCount)") {
+                tapCount += 1
             }
             .navigationTitle("Home Screen")
             .navigationBarTitleDisplayMode(.automatic)
