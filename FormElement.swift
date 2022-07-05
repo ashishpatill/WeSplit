@@ -26,16 +26,9 @@ struct FormElementGroup_Preview: PreviewProvider {
     static var previews: some View {
         Form {
             Group {
-                FormElement()
-                FormElement()
-                FormElement()
-                FormElement()
-                FormElement()
-                FormElement()
-                FormElement()
-                FormElement()
-                FormElement()
-                FormElement()
+                ForEach(0..<10) { _ in
+                    FormElement()
+                }
             }
         }
     }
