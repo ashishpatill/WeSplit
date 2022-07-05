@@ -11,11 +11,9 @@ struct ContentView: View {
     @State private var name = ""
     
     var body: some View {
-        VStack {
-            Form {
-                Text("Name: \(name)")
-                TextField("Enter your name", text: $name)
-            }
+        Form {
+            TextField("Enter your name", text: $name)
+            Text("Name: \(name)")
         }
     }
 }
