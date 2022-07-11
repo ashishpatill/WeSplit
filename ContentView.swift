@@ -13,7 +13,8 @@ struct ContentView: View {
     @State private var tipPercentage = 20
     @FocusState private var isAmountFocused: Bool
     
-    let tipPercentages = [10, 15, 20, 25, 0]
+    let tipPercentages = 0..<101
+    var currencyFormat: FloatingPointFormatStyle<Double>.Currency = .currency(code: Locale.current.currencyCode ?? "USD")
     
     var totalPerPerson: Double {
         let peopleCount = Double(numberOfPeople + 2)
@@ -26,11 +27,17 @@ struct ContentView: View {
         return amountPerPerson
     }
     
+    var totalAmount: Double {
+        let tipValue = checkAmount / 100.0 * Double(tipPercentage)
+        let total = checkAmount + tipValue
+        return total
+    }
+    
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                    TextField("Amount", value: $checkAmount, format: currencyFormat)
                         .keyboardType(.decimalPad)
                         .focused($isAmountFocused)
                     
@@ -49,16 +56,21 @@ struct ContentView: View {
                             Text($0, format: .percent)
                         }
                     }
-                    .pickerStyle(.segmented)
                 } header: {
                     Text("Tip Percentage")
                 }
                 
                 
                 Section {
-                    Text(totalPerPerson, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                    Text(totalPerPerson, format: currencyFormat)
                 } header: {
-                    Text("Tip Amount for each person")
+                    Text("Amount per person")
+                }
+                
+                Section {
+                    Text(totalAmount, format: currencyFormat)
+                } header: {
+                    Text("Total amount")
                 }
             }
             .navigationTitle("We split")
