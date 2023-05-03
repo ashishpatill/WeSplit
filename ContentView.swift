@@ -16,21 +16,19 @@ struct ContentView: View {
     let tipPercentages = 0..<101
     var currencyFormat: FloatingPointFormatStyle<Double>.Currency = .currency(code: Locale.current.currencyCode ?? "USD")
     
-    var totalPerPerson: Double {
-        let peopleCount = Double(numberOfPeople + 2)
-        let tipSelection = Double(tipPercentage)
-        
-        let tipValue = checkAmount / 100 * tipSelection
-        let grandTotal = checkAmount + tipValue
-        let amountPerPerson = grandTotal / peopleCount
-        
-        return amountPerPerson
-    }
-    
     var totalAmount: Double {
         let tipValue = checkAmount / 100.0 * Double(tipPercentage)
         let total = checkAmount + tipValue
         return total
+    }
+    
+    var totalPerPerson: Double {
+        let peopleCount = Double(numberOfPeople + 2)
+        let tipSelection = Double(tipPercentage)
+        
+        let amountPerPerson = totalAmount / peopleCount
+        
+        return amountPerPerson
     }
     
     var body: some View {
